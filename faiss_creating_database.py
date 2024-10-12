@@ -80,6 +80,16 @@ def save_to_faiss(chunks):
     vector_store.add_documents(documents=chunks, ids=uuids)
     vector_store.save_local(path_to_faiss_index)
     
+    # Creating a new DB from the documents
+    # db = Chroma.from_documents(chunks, OpenAIEmbeddings(), persist_directory = path_to_chroma)
+
+    # # Database should save automatically but we can force save using persist
+
+    # # Creating a new FAISS index from the documents
+    # db = FAISS.from_documents(chunks, OpenAIEmbeddings())
+
+    # # Save the FAISS index manually to a file
+    # faiss.write_index(db.index, path_to_faiss_index)
 
     print(f'Saved {len(chunks)} chunks to {path_to_faiss_index}')
 
