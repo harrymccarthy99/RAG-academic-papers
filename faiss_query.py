@@ -43,27 +43,10 @@ def main():
     query_text = args.query_text
 
     embedding_model = OpenAIEmbeddings()  # Adjust as necessary
-    
-    # Inside your main function:
-    query_embedding = np.array(embedding_model.embed_query(query_text))
 
     if os.path.exists(path_to_faiss_index):
-        vector_store = FAISS.load_local("faiss_index", embedding_model, allow_dangerous_deserialization=True)
+        vector_store = FAISS.load_local(path_to_faiss_index, embedding_model, allow_dangerous_deserialization=True)
 
-
-        # index = faiss.read_index(path_to_faiss_index)
-        # db = FAISS(index, docstore, index_to_docstore_id, embedding_function)
-        # distances, indices = index.search(query_embedding.reshape(1, -1), k=3)
-        
-        # Convert distances and indices to lists
-        # distances_list = distances.flatten().tolist()  # Convert to 1D list
-        # indices_list = indices.flatten().tolist()      # Convert to 1D list
-
-        # Store them in results
-        # results = [distances_list, indices_list]
-        # query_answer = index.search(query_embedding, k= 3)
-        # print(query_answer[0].page_content)
-        # print(f'FAISS Index loaded from {path_to_faiss_index}')
     else:
          print("No FAISS index found")
     
@@ -84,28 +67,6 @@ def main():
     sources = [doc.metadata.get("source", None) for doc, _score in results]
     formatted_response = f"Response: {response_text}\nSources: {sources}"
     print(formatted_response)
-
-    # # Prepare the DB.
-    # embedding_function = OpenAIEmbeddings()
-    # db = FAISS(persist_directory=path_to_chroma, embedding_function=embedding_function)
-
-    # # Search the DB.
-    # results = db.similarity_search_with_score(query_text, k=3)
-    # if len(results) == 0 or results[0][1] > 0.7:
-    #     print(f"Unable to find matching results.")
-    #     return
-
-    # context_text = "\n\n---\n\n".join([doc.page_content for doc, _score in results])
-    # prompt = prompt_template.format(context=context_text, question=query_text)
-    # print(prompt)
-
-    # model = ChatOpenAI()
-    # response_text = model.predict(prompt)
-
-    # sources = [doc.metadata.get("source", None) for doc, _score in results]
-    # formatted_response = f"Response: {response_text}\nSources: {sources}"
-    # print(formatted_response)
-
 
 if __name__ == "__main__":
     main()

@@ -7,26 +7,27 @@ import re
 import dash_bootstrap_components as dbc
 
 
-app = Dash(external_stylesheets=[dbc.themes.BOOTSTRAP, dbc.icons.FONT_AWESOME])
+app = Dash(external_stylesheets=[dbc.themes.LUX])
 app.layout = html.Div([
-    html.H2('GNAR Chatbot Interface'),
+    html.H2('GNAR Chatbot Interface', style={'textAlign': 'center'}),
     html.H5('''This chatbot is built upon OpenAI LLM "gpt-4o-mini"
      and has been augmented to with academic papers relating to 
-     Generalised Network Autoregressive models'''),
-    html.Label('Ask your question:'),
+     Generalised Network Autoregressive models''', style={'textAlign': 'center'}),
     html.Br(),
-    dcc.Textarea(id='question-area', value=None, style={'width': '25%', 'height': 100}),
+    html.Label('Ask your question:', style = {'marginLeft': '4%' }),
     html.Br(),
-    html.Button(id='submit-btn', children='Submit'),
+    dcc.Textarea(id='question-area', value=None, style={'width': '50%', 'height': 50, 'marginLeft': '4%' }),
+    html.Br(),
+    html.Button(id='submit-btn', children='Submit', style= {'marginLeft': '4%' }),
     
     # Loading component to show spinner while fetching data
     dcc.Loading(id="loading-response", type="circle", children=[
         html.Br(),
-        html.Div(id='response-area', children=''),
+        html.Div(id='response-area', children='', style= {'marginLeft': '4%' } ),
         html.Br(),
-        html.Div(id='sources-area', children=''),
+        html.Div(id='sources-area', children='', style= {'marginLeft': '4%' } ),
         html.Br(),
-        html.Div(id='context-area', children='')
+        html.Div(id='context-area', children='', style= {'marginLeft': '4%' } )
 
     ])
 ])
@@ -68,8 +69,6 @@ def create_response(_, question):
 
 
         # Format the output for response and sources
-        # answer = f"Answer: {response}"
-        # sources = f"Sources: {sources}"
         sources = html.Div([html.Strong("Sources:"),
                            html.Div(sources),
                            ])
