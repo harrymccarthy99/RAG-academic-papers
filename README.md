@@ -1,7 +1,7 @@
 
 # RAG Model for Academic Papers
 
-This repository provides ode to implement a **Retrieval Augmented Generative (RAG)** application using **langchain**. Further, I provide code to produce a **web-based application** using python package _Dash_ that hosts a chatbot to enable straightforward interaction with the model.
+This repository provides code to implement a **Retrieval Augmented Generation (RAG)** application using **langchain**. Further, I provide code to produce a **web-based application** using python package _Dash_ that hosts a chatbot to enable straightforward interaction with the model.
 
 The model provided retrieves information from a folder of academic papers centred on **Generalised Network Autoregressive (GNAR)** models.
 
